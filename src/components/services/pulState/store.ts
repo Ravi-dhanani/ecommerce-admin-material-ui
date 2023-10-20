@@ -3,14 +3,12 @@ interface IStoreValue {
   isSuccess: boolean;
   successMessage: string;
   isModelOpen: boolean;
-  isEdit: boolean;
   base64: any;
 }
 const StoreValue: IStoreValue = {
   isSuccess: false,
   successMessage: "",
   isModelOpen: false,
-  isEdit: false,
   base64: "",
 };
 export const store = new Store(StoreValue);
@@ -31,11 +29,6 @@ export function setIsModel(data: boolean) {
   });
 }
 
-export function setIsEdit(data: boolean) {
-  return store.update((s) => {
-    s.isEdit = data;
-  });
-}
 export function setBase64(data: any) {
   return store.update((s) => {
     s.base64 = data;

@@ -4,18 +4,24 @@ import DataTable from "../common/DataTable";
 import Message from "../common/massage/Message";
 import ApiServices from "../services/Apiservices";
 import { setSuccess, store } from "../services/pulState/store";
-import { useCarouselList } from "../services/query/ApiHandlerQuery";
-import AddUpdateCarousel from "./AddUpdateCarousel";
+import {
+  useCarouselList,
+  useCategoryList,
+  useProductList,
+} from "../services/query/ApiHandlerQuery";
+import AddUpdateProduct from "./AddUpdateProduct";
 
-export default function Carousel() {
-  const list = useCarouselList();
+export default function Products() {
   const [open, setOpen] = React.useState(false);
-  const [objCarousel, setObjCarousel] = React.useState<any>();
+  const [ObjProduct, setObjProduct] = React.useState<any>();
   const [isEdit, setIsEdit] = React.useState<any>(false);
 
-  const isSuccess = store.useState((s) => s.isSuccess);
+  const list = useProductList();
+
   const showSuccessMessage = store.useState((s) => s.successMessage);
-  async function deleteCarouselData(_id: string) {
+  const isSuccess = store.useState((s) => s.isSuccess);
+
+  async function deleteProductsData(_id: string) {
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -26,11 +32,11 @@ export default function Carousel() {
         confirmButtonText: "Delete",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const res = await ApiServices.deleteCarousel(_id);
+          const res = await ApiServices.deleteCategory(_id);
           console.log(res);
           Swal.fire(
             "Deleted!",
-            `${res.message ? res.message : "Carousel Deleted"}`,
+            `${res.message ? res.message : "Category Deleted"}`,
             "success"
           );
           list.refetch();
@@ -55,30 +61,30 @@ export default function Carousel() {
         />
         <div>
           <DataTable
-            title={"Carousel"}
+            title={"Products"}
             columns={[
               {
-                title: "ImageUrl",
-                field: "ImageUrl",
+                title: "Image",
+                field: "MainImage",
                 render: (item: any) => (
-                  <img src={item.ImageUrl} height={60} width={100} />
+                  <img src={item.MainImage} height={60} width={100} />
                 ),
               },
-              { title: "Title", field: "Title" },
+              { title: "Title", field: "CategoryTitle" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}
-            setDeleteId={deleteCarouselData}
+            setDeleteId={deleteProductsData}
             setOpen={setOpen}
-            setObject={setObjCarousel}
+            setObject={setObjProduct}
             setIsEdit={setIsEdit}
             isLoading={list.isLoading}
-            addButtonTitle={"Add Carousel"}
+            addButtonTitle={"Add Product"}
           />
         </div>
       </div>
       {open && (
-        <AddUpdateCarousel
+        <AddUpdateProduct
           open={open}
           setOpen={() => {
             setOpen(false);
@@ -86,7 +92,7 @@ export default function Carousel() {
           }}
           isEdit={isEdit}
           setIsEdit={setIsEdit}
-          objCarousel={objCarousel}
+          ObjProduct={ObjProduct}
         />
       )}
     </div>

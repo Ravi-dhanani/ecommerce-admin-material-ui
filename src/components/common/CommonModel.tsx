@@ -1,38 +1,66 @@
-import React from "react";
 import {
   Dialog,
-  DialogActions,
   DialogContent,
   DialogTitle,
+  IconButton,
   Typography,
-  Button,
 } from "@mui/material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 interface ICommonModelProps {
   open: boolean;
+  title: string;
+  editTitle: string;
+  children: any;
+  isEdit: boolean | undefined;
+  setOpen: (data: boolean) => void;
 }
 export default function CommonModel(props: ICommonModelProps) {
+  const { open, children, editTitle, title, isEdit, setOpen } = props;
   return (
     <div>
-      <Dialog open={props.open}>
-        <DialogTitle>
-          <Typography variant="h4">
-            Lorem ipsum dolor sit amet consectetuer
-          </Typography>
+      <Dialog open={open} onClose={() => setOpen(false)} maxWidth={"lg"}>
+        <DialogTitle
+          style={{
+            backgroundColor: "#095192",
+            color: "white",
+            padding: "10px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h6" gutterBottom style={{ marginBottom: 0 }}>
+                {isEdit ? editTitle : title}
+              </Typography>
+            </div>
+            <div>
+              <IconButton
+                aria-label="delete"
+                size="large"
+                style={{
+                  padding: "5px",
+                  border: "1px solid black",
+                  backgroundColor: "white",
+                }}
+                onClick={() => setOpen(false)}
+              >
+                <CloseOutlinedIcon style={{ color: "black" }} />
+              </IconButton>
+            </div>
+          </div>
         </DialogTitle>
-        <DialogContent>
-          <Typography variant="h6">
-            Are you sure you want to delete this user?
-          </Typography>
-          <Typography variant="subtitle2">
-            You can't undo this operation
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained">No</Button>
-          <Button variant="contained" color="error">
-            Yes
-          </Button>
-        </DialogActions>
+
+        <DialogContent>{children}</DialogContent>
       </Dialog>
     </div>
   );

@@ -65,7 +65,7 @@ class ApiServices {
       data,
       localStorage.token
     );
-    return res.data;
+    return res;
   }
 
   static async updateCategory(data: ICarousel, _id: any) {

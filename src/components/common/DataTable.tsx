@@ -78,7 +78,11 @@ export default function DataTable(props: IDataTableProps) {
           variant="contained"
           color="primary"
           style={{ backgroundColor: "#095192" }}
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setOpen(true);
+            setObject(null);
+            setIsEdit(false);
+          }}
         >
           {addButtonTitle}
         </Button>
