@@ -1,4 +1,4 @@
-import config from "@/pages/config";
+import config from "@/components/config";
 import ICarousel from "../types/carousel";
 import IProducts from "../types/products";
 import HttpService from "./HttpService";
