@@ -11,12 +11,10 @@ import MuiDrawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { CSSObject, styled, Theme, useTheme } from "@mui/material/styles";
 import { useRouter } from "next/router";
-import * as React from "react";
 
 const drawerWidth = 240;
 
@@ -66,6 +64,7 @@ const Drawer = styled(MuiDrawer, {
     "& .MuiDrawer-paper": closedMixin(theme),
   }),
 }));
+
 interface ISidebar {
   open: boolean;
 }
@@ -76,16 +75,21 @@ const sidebar = [
     route: "/",
     icon: <DashboardIcon />,
   },
-  {
-    Name: "Carousel",
-    route: "/carousel",
-    icon: <PersonIcon />,
-  },
 
   {
     Name: "Category",
     route: "/category",
     icon: <MeetingRoomIcon />,
+  },
+  {
+    Name: "Sub Category",
+    route: "/subCategory",
+    icon: <MeetingRoomIcon />,
+  },
+  {
+    Name: "Carousel",
+    route: "/carousel",
+    icon: <PersonIcon />,
   },
   {
     Name: "Products",
@@ -105,7 +109,6 @@ export default function Sidebar(props: ISidebar) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton>
@@ -117,6 +120,7 @@ export default function Sidebar(props: ISidebar) {
           </IconButton>
         </DrawerHeader>
         <Divider />
+
         <List>
           {sidebar?.map((item, index) => (
             <ListItem
@@ -130,18 +134,26 @@ export default function Sidebar(props: ISidebar) {
                 router.push(`${item.route}`);
               }}
             >
-              <ListItemButton
+              <Box
                 sx={{
+                  display: "flex",
+                  alignItems: "center",
                   minHeight: 48,
+                  cursor: "pointer",
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
+                  backgroundColor:
+                    router.pathname == item.route ? "#095192" : "white",
+                  color: router.pathname == item.route ? "white" : "gray",
                 }}
               >
                 <ListItemIcon
                   sx={{
                     minWidth: 0,
                     mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    color: router.pathname == item.route ? "white" : "gray",
                   }}
                 >
                   {item.icon}
@@ -150,7 +162,7 @@ export default function Sidebar(props: ISidebar) {
                   primary={item.Name}
                   sx={{ opacity: open ? 1 : 0 }}
                 />
-              </ListItemButton>
+              </Box>
             </ListItem>
           ))}
         </List>

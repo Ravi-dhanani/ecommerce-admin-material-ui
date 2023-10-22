@@ -1,8 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import UploadTwoToneIcon from "@mui/icons-material/UploadTwoTone";
 import {
-  Box,
-  Card,
   FormControl,
   FormHelperText,
   Grid,
@@ -14,14 +11,25 @@ import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
+import SaveIcon from "@mui/icons-material/Save";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import * as yup from "yup";
 import CommonModel from "../common/CommonModel";
-import ApiServices from "../services/Apiservices";
-import { setSuccess, setSuccessMessage } from "../services/pulState/store";
+import {
+  setIsLoading,
+  setSuccess,
+  setSuccessMessage,
+  store,
+} from "../services/pulState/store";
+import {
+  useAddProduct,
+  useCategoryList,
+  useUpdateProduct,
+} from "../services/query/ApiHandlerQuery";
 import ICategory from "../types/category";
 import IProducts from "../types/products";
+import { LoadingButton } from "@mui/lab";
 
 export interface IFormProduct {
   Title: string;
@@ -53,8 +61,8 @@ interface IAddUpdateCarouselProps {
 
 export default function AddUpdateProduct(props: IAddUpdateCarouselProps) {
   const { open, setOpen, ObjProduct, isEdit, setIsEdit } = props;
-  const [lstVariant, setLstVariant] = React.useState<any[]>();
-  const [lstCategory, setLstCategory] = React.useState<ICategory[]>();
+  const isLoading = store.useState((s) => s.isLoading);
+  const lstCategory = useCategoryList();
   const [image, setImage] = React.useState<any>({
     url: ObjProduct?.MainImage ? ObjProduct.MainImage : "",
   });
@@ -63,40 +71,20 @@ export default function AddUpdateProduct(props: IAddUpdateCarouselProps) {
     resolver: yupResolver(schema),
   });
 
-  const convertToBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleFileUpload = async (e: any) => {
-    const file = e.target.files[0];
-
-    const base64 = await convertToBase64(file);
-    setImage({
-      ...image,
-      url: base64 ? base64 : ObjProduct?.MainImage,
-    });
-    objForm.setValue("MainImage", file.name);
-  };
-
   const onSubmit = async (data: any) => {
     const result = { ...data, MainImage: image.url };
     try {
       if (isEdit) {
-        const edit = await ApiServices.updateProduct(result, ObjProduct?._id);
+        setIsLoading(true);
+        const edit = await useUpdateProduct(result, ObjProduct?._id);
+        setIsLoading(false);
         setOpen(false);
         setSuccess(true);
         setSuccessMessage(edit.message);
       } else {
-        const res = await ApiServices.addProduct(result);
+        setIsLoading(true);
+        const res = await useAddProduct(result);
+        setIsLoading(false);
         setOpen(false);
         setSuccess(true);
         setSuccessMessage(res.message);
@@ -157,7 +145,7 @@ export default function AddUpdateProduct(props: IAddUpdateCarouselProps) {
                   error={objForm.formState.errors.Category ? true : false}
                 >
                   {lstCategory &&
-                    lstCategory.map((item: any, index: number) => (
+                    lstCategory.data.map((item: ICategory, index: number) => (
                       <MenuItem value={item.CategoryTitle} key={index}>
                         {item.CategoryTitle}
                       </MenuItem>
@@ -251,14 +239,16 @@ export default function AddUpdateProduct(props: IAddUpdateCarouselProps) {
           </Grid>
           <DialogActions>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button
-              variant="contained"
+            <LoadingButton
+              color="secondary"
               type="submit"
-              color="primary"
-              style={{ backgroundColor: "#095192" }}
+              loading={isLoading}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="contained"
             >
               {isEdit ? "Edit " : "Save"}
-            </Button>
+            </LoadingButton>
           </DialogActions>
         </form>
       </CommonModel>

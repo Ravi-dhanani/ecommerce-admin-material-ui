@@ -18,10 +18,12 @@ const tableIcons: any = {
   Add: forwardRef((props: any, ref) => <AddBox {...props} ref={ref} />),
   Clear: forwardRef((props: any, ref) => <Clear {...props} ref={ref} />),
   Delete: forwardRef((props: any, ref) => (
-    <DeleteOutline {...props} ref={ref} />
+    <DeleteOutline {...props} ref={ref} color="error" />
   )),
 
-  Edit: forwardRef((props: any, ref) => <Edit {...props} ref={ref} />),
+  Edit: forwardRef((props: any, ref) => (
+    <Edit {...props} ref={ref} color="primary" />
+  )),
   Filter: forwardRef((props: any, ref) => <FilterList {...props} ref={ref} />),
   FirstPage: forwardRef((props: any, ref) => (
     <FirstPage {...props} ref={ref} />

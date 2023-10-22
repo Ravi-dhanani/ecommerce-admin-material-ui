@@ -2,11 +2,10 @@ import React from "react";
 import Swal from "sweetalert2";
 import DataTable from "../common/DataTable";
 import Message from "../common/massage/Message";
-import ApiServices from "../services/Apiservices";
 import { setSuccess, store } from "../services/pulState/store";
 import {
-  useCarouselList,
   useCategoryList,
+  useDeleteCategory,
 } from "../services/query/ApiHandlerQuery";
 import AddUpdateCategory from "./AddUpdateCategory";
 
@@ -31,7 +30,7 @@ export default function Category() {
         confirmButtonText: "Delete",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const res = await ApiServices.deleteCategory(_id);
+          const res = await useDeleteCategory(_id);
           console.log(res);
           Swal.fire(
             "Deleted!",

@@ -1,15 +1,15 @@
 import { Store } from "pullstate";
 interface IStoreValue {
   isSuccess: boolean;
+  isLoading: boolean;
   successMessage: string;
   isModelOpen: boolean;
-  base64: any;
 }
 const StoreValue: IStoreValue = {
   isSuccess: false,
+  isLoading: false,
   successMessage: "",
   isModelOpen: false,
-  base64: "",
 };
 export const store = new Store(StoreValue);
 
@@ -29,8 +29,8 @@ export function setIsModel(data: boolean) {
   });
 }
 
-export function setBase64(data: any) {
+export function setIsLoading(data: boolean) {
   return store.update((s) => {
-    s.base64 = data;
+    s.isLoading = data;
   });
 }

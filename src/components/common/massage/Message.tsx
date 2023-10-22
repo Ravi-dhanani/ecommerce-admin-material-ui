@@ -1,6 +1,4 @@
-import CloseIcon from "@mui/icons-material/Close";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
 import * as React from "react";
 
@@ -30,19 +28,6 @@ export default function Message(props: ISimpleSnackbarProps) {
 
     setOpen(false);
   };
-
-  const action = (
-    <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
 
   return (
     <div>

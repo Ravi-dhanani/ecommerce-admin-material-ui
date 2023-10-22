@@ -1,11 +1,14 @@
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   IconButton,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { useTheme } from "@mui/material/styles";
+
 interface ICommonModelProps {
   open: boolean;
   title: string;
@@ -16,9 +19,16 @@ interface ICommonModelProps {
 }
 export default function CommonModel(props: ICommonModelProps) {
   const { open, children, editTitle, title, isEdit, setOpen } = props;
+  const theme: any = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <div>
-      <Dialog open={open} onClose={() => setOpen(false)} maxWidth={"lg"}>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        fullScreen={fullScreen}
+        maxWidth={"xl"}
+      >
         <DialogTitle
           style={{
             backgroundColor: "#095192",
@@ -49,7 +59,7 @@ export default function CommonModel(props: ICommonModelProps) {
                 size="large"
                 style={{
                   padding: "5px",
-                  border: "1px solid black",
+                  border: "1px solid gray",
                   backgroundColor: "white",
                 }}
                 onClick={() => setOpen(false)}

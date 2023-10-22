@@ -1,5 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import SaveIcon from "@mui/icons-material/Save";
 import UploadTwoToneIcon from "@mui/icons-material/UploadTwoTone";
+import { LoadingButton } from "@mui/lab";
 import { Box, Card, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
@@ -9,11 +11,19 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import * as yup from "yup";
 import CommonModel from "../common/CommonModel";
-import ApiServices from "../services/Apiservices";
-import { setSuccess, setSuccessMessage } from "../services/pulState/store";
+import {
+  setIsLoading,
+  setSuccess,
+  setSuccessMessage,
+  store,
+} from "../services/pulState/store";
+import {
+  useAddCategory,
+  useUpdateCategory,
+} from "../services/query/ApiHandlerQuery";
 import ICategory from "../types/category";
 
-export interface IFormCarousel {
+export interface IFormCategory {
   CategoryTitle: string;
   CategoryImage: string;
 }
@@ -34,13 +44,13 @@ interface IAddUpdateCarouselProps {
 }
 
 export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
-  const { open, setOpen, ObjCategory, isEdit, setIsEdit } = props;
-
+  const { open, setOpen, ObjCategory, isEdit } = props;
+  const isLoading = store.useState((s) => s.isLoading);
   const [image, setImage] = React.useState<any>({
     url: ObjCategory?.CategoryImage ? ObjCategory.CategoryImage : "",
   });
 
-  const objForm = useForm<IFormCarousel>({
+  const objForm = useForm<IFormCategory>({
     resolver: yupResolver(schema),
     defaultValues: {
       CategoryImage: ObjCategory?.CategoryImage,
@@ -76,12 +86,17 @@ export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
     const result = { ...data, CategoryImage: image.url };
     try {
       if (isEdit) {
-        const edit = await ApiServices.updateCategory(result, ObjCategory?._id);
+        setIsLoading(true);
+        const edit = await useUpdateCategory(result, ObjCategory?._id);
+        setIsLoading(false);
+
         setOpen(false);
         setSuccess(true);
         setSuccessMessage(edit.message);
       } else {
-        const res = await ApiServices.addCategory(result);
+        setIsLoading(true);
+        const res = await useAddCategory(result);
+        setIsLoading(false);
         setOpen(false);
         setSuccess(true);
         setSuccessMessage(res.message);
@@ -181,14 +196,17 @@ export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
           </Grid>
           <DialogActions>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
-            <Button
-              variant="contained"
+            <LoadingButton
+              color="secondary"
               type="submit"
-              color="primary"
-              style={{ backgroundColor: "#095192" }}
+              loading={isLoading}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              variant="contained"
+              style={{ backgroundColor: !isLoading ? "#095192" : "" }}
             >
               {isEdit ? "Edit " : "Save"}
-            </Button>
+            </LoadingButton>
           </DialogActions>
         </form>
       </CommonModel>

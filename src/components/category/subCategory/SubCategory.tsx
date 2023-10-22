@@ -1,23 +1,25 @@
+import DataTable from "@/components/common/DataTable";
+import Message from "@/components/common/massage/Message";
+import { setSuccess, store } from "@/components/services/pulState/store";
+import {
+  useDeleteSubCategory,
+  useSubCategoryList,
+} from "@/components/services/query/ApiHandlerQuery";
 import React from "react";
 import Swal from "sweetalert2";
-import DataTable from "../common/DataTable";
-import Message from "../common/massage/Message";
-import ApiServices from "../services/Apiservices";
-import { setSuccess, store } from "../services/pulState/store";
-import { useProductList } from "../services/query/ApiHandlerQuery";
-import AddUpdateProduct from "./AddUpdateProduct";
+import AddUpdateCategory from "./AddUpdateSubCategory";
 
-export default function Products() {
+export default function SubCategory() {
   const [open, setOpen] = React.useState(false);
-  const [ObjProduct, setObjProduct] = React.useState<any>();
+  const [ObjSubCategory, setObjSubCategory] = React.useState<any>();
   const [isEdit, setIsEdit] = React.useState<any>(false);
 
-  const list = useProductList();
+  const list = useSubCategoryList();
 
   const showSuccessMessage = store.useState((s) => s.successMessage);
   const isSuccess = store.useState((s) => s.isSuccess);
 
-  async function deleteProductsData(_id: string) {
+  async function deleteSubCategoryData(_id: string) {
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -28,11 +30,11 @@ export default function Products() {
         confirmButtonText: "Delete",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const res = await ApiServices.deleteCategory(_id);
+          const res = await useDeleteSubCategory(_id);
           console.log(res);
           Swal.fire(
             "Deleted!",
-            `${res.message ? res.message : "Category Deleted"}`,
+            `${res.message ? res.message : "SubCategory Deleted"}`,
             "success"
           );
           list.refetch();
@@ -57,30 +59,30 @@ export default function Products() {
         />
         <div>
           <DataTable
-            title={"Products"}
+            title={"SubCategory"}
             columns={[
               {
                 title: "Image",
-                field: "MainImage",
+                field: "SubCategoryImage",
                 render: (item: any) => (
-                  <img src={item.MainImage} height={60} width={100} />
+                  <img src={item.SubCategoryImage} height={60} width={100} />
                 ),
               },
-              { title: "Title", field: "CategoryTitle" },
+              { title: "Title", field: "SubCategoryTitle" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}
-            setDeleteId={deleteProductsData}
+            setDeleteId={deleteSubCategoryData}
             setOpen={setOpen}
-            setObject={setObjProduct}
+            setObject={setObjSubCategory}
             setIsEdit={setIsEdit}
             isLoading={list.isLoading}
-            addButtonTitle={"Add Product"}
+            addButtonTitle={"Add Sub Category"}
           />
         </div>
       </div>
       {open && (
-        <AddUpdateProduct
+        <AddUpdateCategory
           open={open}
           setOpen={() => {
             setOpen(false);
@@ -88,7 +90,7 @@ export default function Products() {
           }}
           isEdit={isEdit}
           setIsEdit={setIsEdit}
-          ObjProduct={ObjProduct}
+          ObjSubCategory={ObjSubCategory}
         />
       )}
     </div>
