@@ -20,15 +20,9 @@ interface ICommonModelProps {
 export default function CommonModel(props: ICommonModelProps) {
   const { open, children, editTitle, title, isEdit, setOpen } = props;
   const theme: any = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <div>
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        fullScreen={fullScreen}
-        maxWidth={"xl"}
-      >
+      <Dialog open={open} onClose={() => setOpen(false)} maxWidth={"xl"}>
         <DialogTitle
           style={{
             backgroundColor: "#095192",
