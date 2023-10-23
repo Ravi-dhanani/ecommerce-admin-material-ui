@@ -4,6 +4,7 @@ import IProducts from "../types/products";
 import HttpService from "./HttpService";
 import ISubCategory from "../types/category";
 import ICategory from "../types/category";
+import { IColor, ISize } from "../types/colorAndSize";
 class ApiServices {
   static register(data: any) {
     return HttpService.post(`${config.API_URL}/admin/register`, data);
@@ -21,34 +22,44 @@ class ApiServices {
     return res.data;
   }
 
-  static async getLstVariant() {
-    let res = await HttpService.get(
-      `${config.API_URL}/api/getVariant`,
-      localStorage.token
-    );
-    return res.data;
-  }
-  static async addVariant(data: any) {
+  static async addColor(data?: IColor) {
     let res = await HttpService.post(
-      `${config.API_URL}/api/addVariant`,
-      data,
-      localStorage.token
-    );
-    return res.data;
-  }
-
-  static async updateVariant(data: ICarousel, _id: any) {
-    let res = await HttpService.put(
-      `${config.API_URL}/api/updateVariant/${_id}`,
+      `${config.API_URL}/api/addColor`,
       data,
       localStorage.token
     );
     return res;
   }
 
-  static async deleteVariant(_id: string) {
+  static async getLstColor() {
     let res = await HttpService.get(
-      `${config.API_URL}/api/deleteVariant/${_id}`,
+      `${config.API_URL}/api/getColors`,
+      localStorage.token
+    );
+    return res.data;
+  }
+
+  static async updateColor(data?: IColor, _id?: string) {
+    let res = await HttpService.put(
+      `${config.API_URL}/api/updateColor/${_id}`,
+      data,
+      localStorage.token
+    );
+    return res;
+  }
+
+  static async deleteColor(_id?: string) {
+    let res = await HttpService.get(
+      `${config.API_URL}/api/deleteColor/${_id}`,
+      localStorage.token
+    );
+    return res;
+  }
+
+  static async addCategory(data?: ICategory) {
+    let res = await HttpService.post(
+      `${config.API_URL}/api/addCategory`,
+      data,
       localStorage.token
     );
     return res;
@@ -61,6 +72,7 @@ class ApiServices {
     );
     return res.data;
   }
+
   static async getLstSubCategory() {
     let res = await HttpService.get(
       `${config.API_URL}/api/getSubCategory`,
@@ -68,10 +80,27 @@ class ApiServices {
     );
     return res.data;
   }
-  static async addCategory(data?: ICategory) {
-    let res = await HttpService.post(
-      `${config.API_URL}/api/addCategory`,
+
+  static async updateCategory(data?: ICategory, _id?: string) {
+    let res = await HttpService.put(
+      `${config.API_URL}/api/updateCategory/${_id}`,
       data,
+      localStorage.token
+    );
+    return res;
+  }
+
+  static async getCategory(_id: string) {
+    let res = await HttpService.get(
+      `${config.API_URL}/api/getCategory/${_id}`,
+      localStorage.token
+    );
+    return res;
+  }
+
+  static async deleteCategory(_id?: string) {
+    let res = await HttpService.get(
+      `${config.API_URL}/api/deleteCategory/${_id}`,
       localStorage.token
     );
     return res;
@@ -80,15 +109,6 @@ class ApiServices {
   static async addSubCategory(data?: ISubCategory) {
     let res = await HttpService.post(
       `${config.API_URL}/api/addSubCategory`,
-      data,
-      localStorage.token
-    );
-    return res;
-  }
-
-  static async updateCategory(data?: ICategory, _id?: string) {
-    let res = await HttpService.put(
-      `${config.API_URL}/api/updateCategory/${_id}`,
       data,
       localStorage.token
     );
@@ -104,24 +124,43 @@ class ApiServices {
     return res;
   }
 
-  static async getCategory(_id: any) {
+  static async deleteSubCategory(_id?: string) {
     let res = await HttpService.get(
-      `${config.API_URL}/api/getCategory/${_id}`,
+      `${config.API_URL}/api/deleteSubCategory/${_id}`,
       localStorage.token
     );
     return res;
   }
 
-  static async deleteCategory(_id?: string) {
+  static async getLstSize() {
     let res = await HttpService.get(
-      `${config.API_URL}/api/deleteCategory/${_id}`,
+      `${config.API_URL}/api/getSize`,
+      localStorage.token
+    );
+    return res.data;
+  }
+
+  static async addSize(data?: ISize) {
+    let res = await HttpService.post(
+      `${config.API_URL}/api/addSize`,
+      data,
       localStorage.token
     );
     return res;
   }
-  static async deleteSubCategory(_id?: string) {
+
+  static async updateSize(data?: ISize, _id?: string) {
+    let res = await HttpService.put(
+      `${config.API_URL}/api/updateSize/${_id}`,
+      data,
+      localStorage.token
+    );
+    return res;
+  }
+
+  static async deleteSize(_id?: string) {
     let res = await HttpService.get(
-      `${config.API_URL}/api/deleteSubCategory/${_id}`,
+      `${config.API_URL}/api/deleteSize/${_id}`,
       localStorage.token
     );
     return res;
@@ -134,6 +173,7 @@ class ApiServices {
     );
     return res.data;
   }
+
   static async addProduct(data?: IProducts) {
     let res = await HttpService.post(
       `${config.API_URL}/api/addProduct`,
@@ -160,14 +200,6 @@ class ApiServices {
     return res;
   }
 
-  static async deleteCarousel(_id: string) {
-    let res = await HttpService.get(
-      `${config.API_URL}/api/deleteCarousel/${_id}`,
-      localStorage.token
-    );
-    return res;
-  }
-
   static async getLstCarousel() {
     let res = await HttpService.get(
       `${config.API_URL}/api/getCarousel`,
@@ -185,7 +217,7 @@ class ApiServices {
     return res;
   }
 
-  static async updateCarousel(data?: ICarousel, _id?: any) {
+  static async updateCarousel(data?: ICarousel, _id?: string) {
     let res = await HttpService.put(
       `${config.API_URL}/api/updateCarousel/${_id}`,
       data,
@@ -194,20 +226,12 @@ class ApiServices {
     return res;
   }
 
-  static async deleteDoctor(_id: string) {
-    let res = await HttpService.post(
-      `${config.API_URL}/api/deleteDoctor/${_id}`,
+  static async deleteCarousel(_id?: string) {
+    let res = await HttpService.get(
+      `${config.API_URL}/api/deleteCarousel/${_id}`,
       localStorage.token
     );
     return res;
-  }
-
-  static async getLstDepartment() {
-    let res = await HttpService.get(
-      `${config.API_URL}/api/getDepartment`,
-      localStorage.token
-    );
-    return res.data;
   }
 }
 

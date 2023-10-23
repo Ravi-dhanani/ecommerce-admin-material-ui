@@ -2,23 +2,24 @@ import React from "react";
 import Swal from "sweetalert2";
 import DataTable from "../common/DataTable";
 import Message from "../common/massage/Message";
-import ApiServices from "../services/Apiservices";
 import { setSuccess, store } from "../services/pulState/store";
 import {
-  useCarouselList,
-  useDeleteCarousel,
+  useColorList,
+  useDeleteColor,
 } from "../services/query/ApiHandlerQuery";
-import AddUpdateCarousel from "./AddUpdateCarousel";
+import AddUpdateColor from "./AddUpdateColor";
 
-export default function Carousel() {
-  const list = useCarouselList();
+export default function Color() {
   const [open, setOpen] = React.useState(false);
-  const [objCarousel, setObjCarousel] = React.useState<any>();
+  const [ObjColor, setObjColor] = React.useState<any>();
   const [isEdit, setIsEdit] = React.useState<any>(false);
 
-  const isSuccess = store.useState((s) => s.isSuccess);
+  const list = useColorList();
+
   const showSuccessMessage = store.useState((s) => s.successMessage);
-  async function deleteCarouselData(_id: string) {
+  const isSuccess = store.useState((s) => s.isSuccess);
+
+  async function deleteColorData(_id: string) {
     try {
       Swal.fire({
         title: "Are you sure?",
@@ -29,11 +30,11 @@ export default function Carousel() {
         confirmButtonText: "Delete",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const res = await useDeleteCarousel(_id);
+          const res = await useDeleteColor(_id);
           console.log(res);
           Swal.fire(
             "Deleted!",
-            `${res.message ? res.message : "Carousel Deleted"}`,
+            `${res.message ? res.message : "Color Deleted"}`,
             "success"
           );
           list.refetch();
@@ -58,30 +59,40 @@ export default function Carousel() {
         />
         <div>
           <DataTable
-            title={"Carousel"}
+            title={"Color"}
             columns={[
               {
-                title: "ImageUrl",
-                field: "ImageUrl",
+                title: "Color Name",
+                field: "ColorName",
+              },
+              {
+                title: "Code",
+                field: "ColorCode",
                 render: (item: any) => (
-                  <img src={item.ImageUrl} height={60} width={100} />
+                  <div
+                    style={{
+                      backgroundColor: `${item.ColorCode} `,
+                      width: "30px",
+                      height: "30px",
+                      border: "1px solid white",
+                    }}
+                  ></div>
                 ),
               },
-              { title: "Title", field: "Title" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}
-            setDeleteId={deleteCarouselData}
+            setDeleteId={deleteColorData}
             setOpen={setOpen}
-            setObject={setObjCarousel}
+            setObject={setObjColor}
             setIsEdit={setIsEdit}
             isLoading={list.isLoading}
-            addButtonTitle={"Add Carousel"}
+            addButtonTitle={"Add Color"}
           />
         </div>
       </div>
       {open && (
-        <AddUpdateCarousel
+        <AddUpdateColor
           open={open}
           setOpen={() => {
             setOpen(false);
@@ -89,7 +100,7 @@ export default function Carousel() {
           }}
           isEdit={isEdit}
           setIsEdit={setIsEdit}
-          objCarousel={objCarousel}
+          ObjColor={ObjColor}
         />
       )}
     </div>

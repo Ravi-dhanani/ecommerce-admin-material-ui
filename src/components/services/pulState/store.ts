@@ -1,15 +1,20 @@
 import { Store } from "pullstate";
+import AuthServices from "../AuthServices";
 interface IStoreValue {
+  isLogin: boolean;
+  userData: any;
   isSuccess: boolean;
   isLoading: boolean;
   successMessage: string;
   isModelOpen: boolean;
 }
 const StoreValue: IStoreValue = {
+  isLogin: false,
   isSuccess: false,
   isLoading: false,
   successMessage: "",
   isModelOpen: false,
+  userData: "",
 };
 export const store = new Store(StoreValue);
 
@@ -32,5 +37,16 @@ export function setIsModel(data: boolean) {
 export function setIsLoading(data: boolean) {
   return store.update((s) => {
     s.isLoading = data;
+  });
+}
+export function setIsLogin(data: boolean) {
+  return store.update((s) => {
+    s.isLogin = data;
+  });
+}
+
+export function setUserData(data: any) {
+  return store.update((s) => {
+    s.userData = data;
   });
 }

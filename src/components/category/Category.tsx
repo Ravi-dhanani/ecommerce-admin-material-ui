@@ -8,10 +8,11 @@ import {
   useDeleteCategory,
 } from "../services/query/ApiHandlerQuery";
 import AddUpdateCategory from "./AddUpdateCategory";
+import ICategory from "../types/category";
 
 export default function Category() {
   const [open, setOpen] = React.useState(false);
-  const [ObjCategory, setObjCategory] = React.useState<any>();
+  const [ObjCategory, setObjCategory] = React.useState<ICategory>();
   const [isEdit, setIsEdit] = React.useState<any>(false);
 
   const list = useCategoryList();
@@ -64,7 +65,7 @@ export default function Category() {
               {
                 title: "Image",
                 field: "CategoryImage",
-                render: (item: any) => (
+                render: (item: ICategory) => (
                   <img src={item.CategoryImage} height={60} width={100} />
                 ),
               },

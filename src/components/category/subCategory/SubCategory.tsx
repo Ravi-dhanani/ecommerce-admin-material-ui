@@ -8,6 +8,7 @@ import {
 import React from "react";
 import Swal from "sweetalert2";
 import AddUpdateCategory from "./AddUpdateSubCategory";
+import ISubCategory from "../../types/category";
 
 export default function SubCategory() {
   const [open, setOpen] = React.useState(false);
@@ -64,7 +65,7 @@ export default function SubCategory() {
               {
                 title: "Image",
                 field: "SubCategoryImage",
-                render: (item: any) => (
+                render: (item: ISubCategory) => (
                   <img src={item.SubCategoryImage} height={60} width={100} />
                 ),
               },

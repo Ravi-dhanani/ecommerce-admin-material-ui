@@ -1,6 +1,7 @@
+import Dashboard from "@/components/Dashboard/Dashboard";
+import Auth from "@/components/common/Auth";
 import MainLayout from "@/components/common/header/MainLayout";
 import Head from "next/head";
-import Dashboard from "../components/Dashboard/Dashboard";
 
 export default function Home() {
   return (

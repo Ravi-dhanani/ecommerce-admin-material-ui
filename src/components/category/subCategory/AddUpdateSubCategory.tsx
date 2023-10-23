@@ -101,7 +101,7 @@ export default function AddUpdateSubCategory(props: IAddUpdateCarouselProps) {
     objForm.setValue("SubCategoryImage", file.name);
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: ISubCategory) => {
     const result = {
       ...data,
       SubCategoryImage: image.url,

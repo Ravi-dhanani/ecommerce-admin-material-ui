@@ -2,6 +2,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import {
   Dialog,
   DialogContent,
+  DialogContentText,
   DialogTitle,
   IconButton,
   Typography,
@@ -22,7 +23,7 @@ export default function CommonModel(props: ICommonModelProps) {
   const theme: any = useTheme();
   return (
     <div>
-      <Dialog open={open} onClose={() => setOpen(false)} maxWidth={"xl"}>
+      <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
         <DialogTitle
           style={{
             backgroundColor: "#095192",
@@ -63,8 +64,11 @@ export default function CommonModel(props: ICommonModelProps) {
             </div>
           </div>
         </DialogTitle>
+        <DialogContentText></DialogContentText>
 
-        <DialogContent>{children}</DialogContent>
+        <DialogContent>
+          <div>{children}</div>
+        </DialogContent>
       </Dialog>
     </div>
   );

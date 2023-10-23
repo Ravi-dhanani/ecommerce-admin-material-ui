@@ -92,6 +92,16 @@ const sidebar = [
     icon: <PersonIcon />,
   },
   {
+    Name: "Color",
+    route: "/colors",
+    icon: <MeetingRoomIcon />,
+  },
+  {
+    Name: "Size",
+    route: "/sizes",
+    icon: <MeetingRoomIcon />,
+  },
+  {
     Name: "Products",
     route: "/products",
     icon: <MeetingRoomIcon />,
