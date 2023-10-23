@@ -92,6 +92,7 @@ export default function AddUpdateSize(props: IAddUpdateSizeProps) {
             variant="outlined"
             {...objForm.register("Size")}
             error={objForm.formState.errors.Size ? true : false}
+            defaultValue={objSize?.Size ? objSize?.Size : ""}
             helperText={
               <span style={{ color: "red" }}>
                 {objForm.formState.errors.Size?.message}
