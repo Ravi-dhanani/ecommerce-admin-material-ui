@@ -14,16 +14,24 @@ interface ICommonModelProps {
   open: boolean;
   title: string;
   editTitle: string;
+  modelSize: any;
   children: any;
   isEdit: boolean | undefined;
   setOpen: (data: boolean) => void;
 }
 export default function CommonModel(props: ICommonModelProps) {
-  const { open, children, editTitle, title, isEdit, setOpen } = props;
+  const { open, children, editTitle, title, isEdit, modelSize, setOpen } =
+    props;
   const theme: any = useTheme();
+  const size = modelSize;
   return (
     <div>
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        fullWidth
+        maxWidth={size}
+      >
         <DialogTitle
           style={{
             backgroundColor: "#095192",

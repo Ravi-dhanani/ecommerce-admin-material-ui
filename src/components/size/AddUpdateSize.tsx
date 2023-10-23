@@ -77,6 +77,7 @@ export default function AddUpdateSize(props: IAddUpdateSizeProps) {
       <CommonModel
         editTitle="Edit Size"
         title="Add Size"
+        modelSize={"md"}
         isEdit={isEdit}
         open={open}
         setOpen={setOpen}

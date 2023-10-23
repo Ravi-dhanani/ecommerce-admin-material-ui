@@ -86,6 +86,7 @@ export default function AddUpdateColor(props: IAddUpdateColorProps) {
     <div>
       <CommonModel
         editTitle="Edit Color"
+        modelSize={"md"}
         title="Add Color"
         isEdit={isEdit}
         open={open}

@@ -89,6 +89,7 @@ export default function AddUpdateCarousel(props: IAddUpdateCarouselProps) {
     <div>
       <CommonModel
         editTitle="Edit Carousel"
+        modelSize="md"
         isEdit={isEdit}
         open={open}
         setOpen={setOpen}

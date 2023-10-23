@@ -116,6 +116,7 @@ export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
       <CommonModel
         editTitle="Edit Category"
         title="Add Category"
+        modelSize={"md"}
         isEdit={isEdit}
         open={open}
         setOpen={setOpen}
