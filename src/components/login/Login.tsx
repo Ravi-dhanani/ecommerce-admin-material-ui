@@ -51,7 +51,7 @@ export default function Login() {
         showConfirmButton: false,
         timer: 1500,
       });
-      router.push("/");
+      router.push("/dashboard");
     } catch (errors: any) {
       console.log(errors);
     }

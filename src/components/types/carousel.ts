@@ -3,7 +3,7 @@ export default interface ISpecialty {
 }
 export default interface ICarousel {
   _id: string;
-  Title: string;
-  ImageUrl: string;
+  title: string;
+  imageUrl: string;
   Date: string;
 }

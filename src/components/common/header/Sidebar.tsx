@@ -72,7 +72,7 @@ interface ISidebar {
 const sidebar = [
   {
     Name: "Dashboard",
-    route: "/",
+    route: "/dashboard",
     icon: <DashboardIcon />,
   },
 

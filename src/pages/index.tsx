@@ -1,6 +1,7 @@
 import Dashboard from "@/components/Dashboard/Dashboard";
 import Auth from "@/components/common/Auth";
 import MainLayout from "@/components/common/header/MainLayout";
+import Login from "@/components/login/Login";
 import Head from "next/head";
 
 export default function Home() {
@@ -12,9 +13,10 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <MainLayout>
+      {/* <MainLayout>
         <Dashboard />
-      </MainLayout>
+      </MainLayout> */}
+      <Auth />
     </>
   );
 }

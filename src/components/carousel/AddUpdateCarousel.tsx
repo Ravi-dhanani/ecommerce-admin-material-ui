@@ -24,14 +24,14 @@ import ICarousel from "../types/carousel";
 import CarouselImage from "./Carouselmage";
 
 export interface IFormCarousel {
-  Title: string;
-  ImageUrl: string;
+  title: string;
+  imageUrl: string;
 }
 
 const schema = yup
   .object({
-    Title: yup.string().required(),
-    ImageUrl: yup.string().required(),
+    title: yup.string().required(),
+    imageUrl: yup.string().required(),
   })
   .required();
 
@@ -47,13 +47,13 @@ export default function AddUpdateCarousel(props: IAddUpdateCarouselProps) {
   const { open, setOpen, objCarousel, isEdit, setIsEdit } = props;
   const isLoading = store.useState((s) => s.isLoading);
   const [image, setImage] = React.useState<any>({
-    url: objCarousel?.ImageUrl ? objCarousel.ImageUrl : "",
+    url: objCarousel?.imageUrl ? objCarousel.imageUrl : "",
   });
 
   const objForm = useForm<IFormCarousel>({
     resolver: yupResolver(schema),
     defaultValues: {
-      ImageUrl: objCarousel?.ImageUrl,
+      imageUrl: objCarousel?.imageUrl,
     },
   });
 
@@ -111,12 +111,12 @@ export default function AddUpdateCarousel(props: IAddUpdateCarouselProps) {
                 type="text"
                 fullWidth
                 variant="outlined"
-                {...objForm.register("Title")}
-                error={objForm.formState.errors.Title ? true : false}
-                defaultValue={isEdit ? objCarousel?.Title : null}
+                {...objForm.register("title")}
+                error={objForm.formState.errors.title ? true : false}
+                defaultValue={isEdit ? objCarousel?.title : null}
                 helperText={
                   <span style={{ color: "red" }}>
-                    {objForm.formState.errors.Title?.message}
+                    {objForm.formState.errors.title?.message}
                   </span>
                 }
               />
@@ -124,7 +124,7 @@ export default function AddUpdateCarousel(props: IAddUpdateCarouselProps) {
 
             <Grid item xs={12}>
               <CarouselImage
-                base64={objCarousel?.ImageUrl}
+                base64={objCarousel?.imageUrl}
                 objForm={objForm}
                 isEdit={isEdit}
                 setImage={setImage}

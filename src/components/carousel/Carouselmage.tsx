@@ -32,7 +32,7 @@ export default function CarouselImage(props: ICarouselImageProps) {
       ...props.image,
       url: base64 ? base64 : props.base64,
     });
-    props.objForm.setValue("ImageUrl", file.name);
+    props.objForm.setValue("imageUrl", file.name);
   };
 
   return (
@@ -52,9 +52,9 @@ export default function CarouselImage(props: ICarouselImageProps) {
           Select Image
         </Button>
       </div>
-      {props.objForm.formState.errors.ImageUrl && !props.image.url && (
+      {props.objForm.formState.errors.imageUrl && !props.image.url && (
         <span style={{ color: "red", marginLeft: "3px", marginTop: "" }}>
-          {props.objForm.formState.errors.ImageUrl.message}
+          {props.objForm.formState.errors.imageUrl.message}
         </span>
       )}
       {props.image.url && (
