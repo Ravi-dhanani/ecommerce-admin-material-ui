@@ -1,42 +1,74 @@
 import React, { forwardRef } from "react";
 
 import AddBox from "@material-ui/icons/AddBox";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import Clear from "@material-ui/icons/Clear";
-import DeleteOutline from "@material-ui/icons/DeleteOutline";
+import Remove from "@material-ui/icons/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import Check from "@material-ui/icons/Check";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Edit from "@material-ui/icons/Edit";
 import FilterList from "@material-ui/icons/FilterList";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
+import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
+
 import ViewColumn from "@material-ui/icons/ViewColumn";
-import { Button, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  ThemeProvider,
+  Typography,
+  createTheme,
+} from "@mui/material";
 import MaterialTable from "material-table";
 
 const tableIcons: any = {
-  Add: forwardRef((props: any, ref) => <AddBox {...props} ref={ref} />),
-  Clear: forwardRef((props: any, ref) => <Clear {...props} ref={ref} />),
-  Delete: forwardRef((props: any, ref) => (
-    <DeleteOutline {...props} ref={ref} color="error" />
+  Add: forwardRef((props: any) => <AddBox fontSize="large" color="primary" />),
+  Check: forwardRef((props: any, ref: any) => <Check {...props} ref={ref} />),
+  Clear: forwardRef((props: any, ref: any) => <Clear {...props} ref={ref} />),
+  Delete: forwardRef((props: any, ref: any) => (
+    <DeleteIcon {...props} ref={ref} color="error" />
   )),
-
-  Edit: forwardRef((props: any, ref) => (
-    <Edit {...props} ref={ref} color="primary" />
-  )),
-  Filter: forwardRef((props: any, ref) => <FilterList {...props} ref={ref} />),
-  FirstPage: forwardRef((props: any, ref) => (
-    <FirstPage {...props} ref={ref} />
-  )),
-  LastPage: forwardRef((props: any, ref) => <LastPage {...props} ref={ref} />),
-  NextPage: forwardRef((props: any, ref) => (
+  DetailPanel: forwardRef((props: any, ref: any) => (
     <ChevronRight {...props} ref={ref} />
   )),
-  PreviousPage: forwardRef((props: any, ref) => (
+  Edit: forwardRef((props: any, ref: any) => (
+    <Edit {...props} ref={ref} color="primary" />
+  )),
+
+  Export: forwardRef((props: any, ref: any) => (
+    <SaveAlt {...props} ref={ref} />
+  )),
+  Filter: forwardRef((props: any, ref: any) => (
+    <FilterList {...props} ref={ref} />
+  )),
+  FirstPage: forwardRef((props: any, ref: any) => (
+    <FirstPage {...props} ref={ref} />
+  )),
+  LastPage: forwardRef((props: any, ref: any) => (
+    <LastPage {...props} ref={ref} />
+  )),
+  NextPage: forwardRef((props: any, ref: any) => (
+    <ChevronRight {...props} ref={ref} />
+  )),
+  PreviousPage: forwardRef((props: any, ref: any) => (
     <ChevronLeft {...props} ref={ref} />
   )),
-  Search: forwardRef((props: any, ref) => <Search {...props} ref={ref} />),
-  ViewColumn: forwardRef((props: any, ref) => (
+  ResetSearch: forwardRef((props: any, ref: any) => (
+    <Clear {...props} ref={ref} />
+  )),
+  Search: forwardRef((props: any, ref: any) => <Search {...props} ref={ref} />),
+  SortArrow: forwardRef((props: any, ref: any) => (
+    <ArrowDownward {...props} ref={ref} />
+  )),
+  ThirdStateCheck: forwardRef((props: any, ref: any) => (
+    <Remove {...props} ref={ref} />
+  )),
+  ViewColumn: forwardRef((props: any, ref: any) => (
     <ViewColumn {...props} ref={ref} />
   )),
 };
@@ -69,26 +101,6 @@ export default function DataTable(props: IDataTableProps) {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          paddingBottom: "10px",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ backgroundColor: "#095192" }}
-          onClick={() => {
-            setOpen(true);
-            setObject(null);
-            setIsEdit(false);
-          }}
-        >
-          {addButtonTitle}
-        </Button>
-      </div>
       <ThemeProvider theme={theme}>
         <MaterialTable
           tableRef={tableRef}
@@ -98,6 +110,16 @@ export default function DataTable(props: IDataTableProps) {
           icons={tableIcons}
           isLoading={isLoading}
           actions={[
+            {
+              icon: tableIcons.Add,
+              isFreeAction: true,
+              tooltip: "Add ",
+              onClick: () => {
+                setOpen(true);
+                setObject(null);
+                setIsEdit(false);
+              },
+            },
             {
               icon: tableIcons.Edit,
               tooltip: "Edit",

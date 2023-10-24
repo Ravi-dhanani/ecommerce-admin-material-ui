@@ -66,7 +66,14 @@ export default function Category() {
                 title: "Image",
                 field: "CategoryImage",
                 render: (item: ICategory) => (
-                  <img src={item.CategoryImage} height={60} width={100} />
+                  <div style={{ height: "70px", width: "70px" }}>
+                    <img
+                      src={item.CategoryImage}
+                      height={"100%"}
+                      width={"100%"}
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
                 ),
               },
               { title: "Title", field: "CategoryTitle" },

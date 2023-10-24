@@ -37,7 +37,7 @@ export default function CarouselImage(props: ICarouselImageProps) {
 
   return (
     <div>
-      <label htmlFor="change-cover">
+      <div style={{ marginBottom: "10px" }}>
         <TextField
           id="change-cover"
           type="file"
@@ -51,9 +51,9 @@ export default function CarouselImage(props: ICarouselImageProps) {
         >
           Select Image
         </Button>
-      </label>
+      </div>
       {props.objForm.formState.errors.ImageUrl && !props.image.url && (
-        <span style={{ color: "red", marginLeft: "20px" }}>
+        <span style={{ color: "red", marginLeft: "3px", marginTop: "" }}>
           {props.objForm.formState.errors.ImageUrl.message}
         </span>
       )}

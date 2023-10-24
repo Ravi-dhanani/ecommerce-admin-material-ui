@@ -2,7 +2,6 @@ import React from "react";
 import Swal from "sweetalert2";
 import DataTable from "../common/DataTable";
 import Message from "../common/massage/Message";
-import ApiServices from "../services/Apiservices";
 import { setSuccess, store } from "../services/pulState/store";
 import {
   useCarouselList,
@@ -64,7 +63,12 @@ export default function Carousel() {
                 title: "ImageUrl",
                 field: "ImageUrl",
                 render: (item: any) => (
-                  <img src={item.ImageUrl} height={60} width={100} />
+                  <img
+                    src={item.ImageUrl}
+                    height={100}
+                    width={200}
+                    style={{ objectFit: "fill" }}
+                  />
                 ),
               },
               { title: "Title", field: "Title" },

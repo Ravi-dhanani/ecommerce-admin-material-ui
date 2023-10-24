@@ -72,7 +72,6 @@ export default function CommonModel(props: ICommonModelProps) {
             </div>
           </div>
         </DialogTitle>
-        <DialogContentText></DialogContentText>
 
         <DialogContent>
           <div>{children}</div>

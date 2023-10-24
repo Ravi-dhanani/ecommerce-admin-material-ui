@@ -66,7 +66,14 @@ export default function SubCategory() {
                 title: "Image",
                 field: "SubCategoryImage",
                 render: (item: ISubCategory) => (
-                  <img src={item.SubCategoryImage} height={60} width={100} />
+                  <div style={{ height: "70px", width: "70px" }}>
+                    <img
+                      src={item.SubCategoryImage}
+                      height={"100%"}
+                      width={"100%"}
+                      style={{ objectFit: "contain" }}
+                    />
+                  </div>
                 ),
               },
               { title: "Title", field: "SubCategoryTitle" },
