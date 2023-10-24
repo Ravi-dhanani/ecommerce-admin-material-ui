@@ -1,10 +1,16 @@
+import AuthGard from "@/components/AuthGard";
 import Dashboard from "@/components/Dashboard/Dashboard";
-import Auth from "@/components/common/Auth";
 import MainLayout from "@/components/common/header/MainLayout";
 import Login from "@/components/login/Login";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
+  const navigate = (name: any) => {
+    router.push("/login");
+  };
+
   return (
     <>
       <Head>
@@ -13,10 +19,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <MainLayout>
-        <Dashboard />
-      </MainLayout> */}
-      <Auth />
+      <AuthGard />
     </>
   );
 }

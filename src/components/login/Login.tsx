@@ -17,6 +17,7 @@ import * as yup from "yup";
 import ApiServices from "../services/Apiservices";
 import AuthServices from "../services/AuthServices";
 import { setUserData } from "../services/pulState/store";
+import { useEffect } from "react";
 
 const schema = yup
   .object({
@@ -56,6 +57,12 @@ export default function Login() {
       console.log(errors);
     }
   };
+  useEffect(() => {
+    const isLogin = AuthServices.getUserInfo();
+    if (isLogin) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <div>
