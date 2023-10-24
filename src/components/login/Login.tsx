@@ -44,7 +44,7 @@ export default function Login() {
       const res = await ApiServices.login(data);
       setUserData(res.data);
       AuthServices.setToken(res.token);
-      AuthServices.setUserInfo(res.data);
+      AuthServices.setUser(res.data);
       Swal.fire({
         position: "center",
         icon: "success",
@@ -58,7 +58,7 @@ export default function Login() {
     }
   };
   useEffect(() => {
-    const isLogin = AuthServices.getUserInfo();
+    const isLogin = AuthServices.getUser();
     if (isLogin) {
       router.push("/dashboard");
     }

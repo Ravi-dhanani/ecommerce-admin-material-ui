@@ -16,8 +16,16 @@ class AuthServices {
     return JSON.parse(detail);
   }
 
+  static getUser() {
+    let detail: any = sessionStorage.getItem("userInfo");
+    return JSON.parse(detail);
+  }
+
   static clearLoginData() {
     localStorage.removeItem("token");
+  }
+  static setUser(info: any) {
+    sessionStorage.setItem("userInfo", JSON.stringify(info));
   }
 }
 export default AuthServices;
