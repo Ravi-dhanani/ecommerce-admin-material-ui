@@ -60,18 +60,18 @@ export default function Carousel() {
             title={"Carousel"}
             columns={[
               {
-                title: "ImageUrl",
-                field: "ImageUrl",
+                title: "Image",
+                field: "imageUrl",
                 render: (item: any) => (
                   <img
-                    src={item.ImageUrl}
+                    src={item.imageUrl}
                     height={100}
                     width={200}
                     style={{ objectFit: "fill" }}
                   />
                 ),
               },
-              { title: "Title", field: "Title" },
+              { title: "Title", field: "title" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}

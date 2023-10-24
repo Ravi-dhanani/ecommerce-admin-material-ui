@@ -58,7 +58,7 @@ export default function AddUpdateCarousel(props: IAddUpdateCarouselProps) {
   });
 
   const onSubmit = async (data: any) => {
-    const result = { ...data, ImageUrl: image.url };
+    const result = { ...data, imageUrl: image.url };
     try {
       if (isEdit) {
         setIsLoading(true);
