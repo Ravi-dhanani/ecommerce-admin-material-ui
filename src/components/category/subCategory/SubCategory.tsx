@@ -64,11 +64,11 @@ export default function SubCategory() {
             columns={[
               {
                 title: "Image",
-                field: "SubCategoryImage",
+                field: "subCategoryImage",
                 render: (item: ISubCategory) => (
                   <div style={{ height: "70px", width: "70px" }}>
                     <img
-                      src={item.SubCategoryImage}
+                      src={item.subCategoryImage}
                       height={"100%"}
                       width={"100%"}
                       style={{ objectFit: "contain" }}
@@ -76,7 +76,7 @@ export default function SubCategory() {
                   </div>
                 ),
               },
-              { title: "Title", field: "SubCategoryTitle" },
+              { title: "Title", field: "subCategoryTitle" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}

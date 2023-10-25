@@ -37,16 +37,16 @@ import {
 } from "../../types/category";
 
 export interface IFormSubCategory {
-  SubCategoryTitle: string;
-  SubCategoryImage: string;
-  CategoryId: ICategory;
+  subCategoryTitle: string;
+  subCategoryImage: string;
+  categoryId: ICategory;
 }
 
 const schema = yup
   .object({
-    SubCategoryTitle: yup.string().required(),
-    SubCategoryImage: yup.string().required(),
-    CategoryId: yup.string().required(),
+    subCategoryTitle: yup.string().required(),
+    subCategoryImage: yup.string().required(),
+    categoryId: yup.string().required(),
   })
   .required();
 
@@ -64,16 +64,16 @@ export default function AddUpdateSubCategory(props: IAddUpdateCarouselProps) {
   const lstCategory = useCategoryList();
   const isLoading = store.useState((s) => s.isLoading);
   const [image, setImage] = React.useState<any>({
-    url: ObjSubCategory?.SubCategoryImage
-      ? ObjSubCategory.SubCategoryImage
+    url: ObjSubCategory?.subCategoryImage
+      ? ObjSubCategory.subCategoryImage
       : "",
   });
 
   const objForm = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      SubCategoryImage: ObjSubCategory?.SubCategoryImage,
-      SubCategoryTitle: ObjSubCategory?.SubCategoryTitle,
+      subCategoryImage: ObjSubCategory?.subCategoryImage,
+      subCategoryTitle: ObjSubCategory?.subCategoryTitle,
     },
   });
 
@@ -96,15 +96,15 @@ export default function AddUpdateSubCategory(props: IAddUpdateCarouselProps) {
     const base64 = await convertToBase64(file);
     setImage({
       ...image,
-      url: base64 ? base64 : ObjSubCategory?.SubCategoryImage,
+      url: base64 ? base64 : ObjSubCategory?.subCategoryImage,
     });
-    objForm.setValue("SubCategoryImage", file.name);
+    objForm.setValue("subCategoryImage", file.name);
   };
 
   const onSubmit = async (data: ISubCategory) => {
     const result = {
       ...data,
-      SubCategoryImage: image.url,
+      subCategoryImage: image.url,
     };
     try {
       if (isEdit) {
@@ -162,13 +162,13 @@ export default function AddUpdateSubCategory(props: IAddUpdateCarouselProps) {
                     type="text"
                     fullWidth
                     variant="outlined"
-                    {...objForm.register("SubCategoryTitle")}
+                    {...objForm.register("subCategoryTitle")}
                     error={
-                      objForm.formState.errors.SubCategoryTitle ? true : false
+                      objForm.formState.errors.subCategoryTitle ? true : false
                     }
                     helperText={
                       <span style={{ color: "red" }}>
-                        {objForm.formState.errors.SubCategoryTitle?.message}
+                        {objForm.formState.errors.subCategoryTitle?.message}
                       </span>
                     }
                   />
@@ -184,21 +184,21 @@ export default function AddUpdateSubCategory(props: IAddUpdateCarouselProps) {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       label="Status"
-                      {...objForm.register("CategoryId")}
-                      defaultValue={ObjSubCategory?.CategoryId}
-                      error={objForm.formState.errors.CategoryId ? true : false}
+                      {...objForm.register("categoryId")}
+                      defaultValue={ObjSubCategory?.categoryId}
+                      error={objForm.formState.errors.categoryId ? true : false}
                     >
                       {lstCategory &&
                         lstCategory?.data?.map(
                           (item: ICategory, index: number) => (
                             <MenuItem value={item._id} key={index}>
-                              {item.CategoryTitle}
+                              {item.categoryTitle}
                             </MenuItem>
                           )
                         )}
                     </Select>
                     <FormHelperText style={{ color: "red" }}>
-                      {objForm.formState.errors?.CategoryId?.message}
+                      {objForm.formState.errors?.categoryId?.message}
                     </FormHelperText>
                   </FormControl>
                 </div>
@@ -248,9 +248,9 @@ export default function AddUpdateSubCategory(props: IAddUpdateCarouselProps) {
                   )}
                 </div>
                 <div style={{ marginTop: "7px" }}>
-                  {objForm.formState.errors.SubCategoryImage && !image.url && (
+                  {objForm.formState.errors.subCategoryImage && !image.url && (
                     <span style={{ color: "red" }}>
-                      {objForm.formState.errors.SubCategoryImage.message}
+                      {objForm.formState.errors.subCategoryImage.message}
                     </span>
                   )}
                 </div>

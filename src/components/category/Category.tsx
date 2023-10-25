@@ -64,11 +64,11 @@ export default function Category() {
             columns={[
               {
                 title: "Image",
-                field: "CategoryImage",
+                field: "categoryImage",
                 render: (item: ICategory) => (
                   <div style={{ height: "70px", width: "70px" }}>
                     <img
-                      src={item.CategoryImage}
+                      src={item.categoryImage}
                       height={"100%"}
                       width={"100%"}
                       style={{ objectFit: "contain" }}
@@ -76,7 +76,7 @@ export default function Category() {
                   </div>
                 ),
               },
-              { title: "Title", field: "CategoryTitle" },
+              { title: "Title", field: "categoryTitle" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}

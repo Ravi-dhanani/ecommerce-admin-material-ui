@@ -63,15 +63,15 @@ export default function Color() {
             columns={[
               {
                 title: "Color Name",
-                field: "ColorName",
+                field: "colorName",
               },
               {
                 title: "Code",
-                field: "ColorCode",
+                field: "colorCode",
                 render: (item: any) => (
                   <div
                     style={{
-                      backgroundColor: `${item.ColorCode} `,
+                      backgroundColor: `${item.colorCode} `,
                       width: "30px",
                       height: "30px",
                       border: "1px solid white",

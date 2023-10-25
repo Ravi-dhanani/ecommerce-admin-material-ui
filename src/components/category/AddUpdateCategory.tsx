@@ -24,14 +24,14 @@ import {
 import ICategory from "../types/category";
 
 export interface IFormCategory {
-  CategoryTitle: string;
-  CategoryImage: string;
+  categoryTitle: string;
+  categoryImage: string;
 }
 
 const schema = yup
   .object({
-    CategoryTitle: yup.string().required(),
-    CategoryImage: yup.string().required(),
+    categoryTitle: yup.string().required(),
+    categoryImage: yup.string().required(),
   })
   .required();
 
@@ -47,14 +47,14 @@ export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
   const { open, setOpen, ObjCategory, isEdit } = props;
   const isLoading = store.useState((s) => s.isLoading);
   const [image, setImage] = React.useState<any>({
-    url: ObjCategory?.CategoryImage ? ObjCategory.CategoryImage : "",
+    url: ObjCategory?.categoryImage ? ObjCategory.categoryImage : "",
   });
 
   const objForm = useForm<IFormCategory>({
     resolver: yupResolver(schema),
     defaultValues: {
-      CategoryImage: ObjCategory?.CategoryImage,
-      CategoryTitle: ObjCategory?.CategoryTitle,
+      categoryImage: ObjCategory?.categoryImage,
+      categoryTitle: ObjCategory?.categoryTitle,
     },
   });
 
@@ -77,13 +77,13 @@ export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
     const base64 = await convertToBase64(file);
     setImage({
       ...image,
-      url: base64 ? base64 : ObjCategory?.CategoryImage,
+      url: base64 ? base64 : ObjCategory?.categoryImage,
     });
-    objForm.setValue("CategoryImage", file.name);
+    objForm.setValue("categoryImage", file.name);
   };
 
   const onSubmit = async (data: any) => {
-    const result = { ...data, CategoryImage: image.url };
+    const result = { ...data, categoryImage: image.url };
     try {
       if (isEdit) {
         setIsLoading(true);
@@ -137,11 +137,11 @@ export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
                 type="text"
                 fullWidth
                 variant="outlined"
-                {...objForm.register("CategoryTitle")}
-                error={objForm.formState.errors.CategoryTitle ? true : false}
+                {...objForm.register("categoryTitle")}
+                error={objForm.formState.errors.categoryTitle ? true : false}
                 helperText={
                   <span style={{ color: "red" }}>
-                    {objForm.formState.errors.CategoryTitle?.message}
+                    {objForm.formState.errors.categoryTitle?.message}
                   </span>
                 }
               />
@@ -163,9 +163,9 @@ export default function AddUpdateCategory(props: IAddUpdateCarouselProps) {
                   Select Image
                 </Button>
               </label>
-              {objForm.formState.errors.CategoryImage && !image.url && (
+              {objForm.formState.errors.categoryImage && !image.url && (
                 <span style={{ color: "red", marginLeft: "20px" }}>
-                  {objForm.formState.errors.CategoryImage.message}
+                  {objForm.formState.errors.categoryImage.message}
                 </span>
               )}
               {image.url && (

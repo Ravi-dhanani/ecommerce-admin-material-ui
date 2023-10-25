@@ -19,12 +19,12 @@ import { useAddSize, useUpdateSize } from "../services/query/ApiHandlerQuery";
 import { ISize } from "../types/colorAndSize";
 
 export interface IFormSize {
-  Size: string;
+  sizeName: string;
 }
 
 const schema = yup
   .object({
-    Size: yup.string().required(),
+    sizeName: yup.string().required(),
   })
   .required();
 
@@ -91,12 +91,12 @@ export default function AddUpdateSize(props: IAddUpdateSizeProps) {
             type="text"
             inputProps={{ style: { textTransform: "uppercase" } }}
             variant="outlined"
-            {...objForm.register("Size")}
-            error={objForm.formState.errors.Size ? true : false}
-            defaultValue={objSize?.Size ? objSize?.Size : ""}
+            {...objForm.register("sizeName")}
+            error={objForm.formState.errors.sizeName ? true : false}
+            defaultValue={objSize?.sizeName ? objSize?.sizeName : ""}
             helperText={
               <span style={{ color: "red" }}>
-                {objForm.formState.errors.Size?.message}
+                {objForm.formState.errors.sizeName?.message}
               </span>
             }
             fullWidth

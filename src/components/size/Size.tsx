@@ -57,7 +57,7 @@ export default function Size() {
           <DataTable
             title={"Sizes"}
             columns={[
-              { title: "Size", field: "Size" },
+              { title: "Size", field: "sizeName" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}

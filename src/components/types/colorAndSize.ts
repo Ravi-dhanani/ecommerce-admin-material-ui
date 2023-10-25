@@ -1,10 +1,11 @@
+import category from "../../pages/category";
 export interface IColor {
   _id?: string;
-  ColorName: string;
-  ColorCode: string;
+  colorName: string;
+  colorCode: string;
 }
 export interface ISize {
   _id?: string;
-  Size: String;
+  sizeName: String;
   Date?: string;
 }

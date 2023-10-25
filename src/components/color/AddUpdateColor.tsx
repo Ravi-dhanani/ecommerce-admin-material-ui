@@ -26,14 +26,14 @@ import { useAddColor } from "../services/query/ApiHandlerQuery";
 import ApiServices from "../services/Apiservices";
 
 export interface IFormCategory {
-  ColorName: string;
-  ColorCode: string;
+  colorName: string;
+  colorCode: string;
 }
 
 const schema = yup
   .object({
-    ColorName: yup.string().required(),
-    ColorCode: yup.string().required(),
+    colorName: yup.string().required(),
+    colorCode: yup.string().required(),
   })
   .required();
 
@@ -108,11 +108,11 @@ export default function AddUpdateColor(props: IAddUpdateColorProps) {
                 type="text"
                 fullWidth
                 variant="outlined"
-                {...objForm.register("ColorName")}
-                error={objForm.formState.errors.ColorName ? true : false}
+                {...objForm.register("colorName")}
+                error={objForm.formState.errors.colorName ? true : false}
                 helperText={
                   <span style={{ color: "red" }}>
-                    {objForm.formState.errors.ColorName?.message}
+                    {objForm.formState.errors.colorName?.message}
                   </span>
                 }
               />
@@ -127,11 +127,11 @@ export default function AddUpdateColor(props: IAddUpdateColorProps) {
                 type="text"
                 fullWidth
                 variant="outlined"
-                {...objForm.register("ColorCode")}
-                error={objForm.formState.errors.ColorCode ? true : false}
+                {...objForm.register("colorCode")}
+                error={objForm.formState.errors.colorCode ? true : false}
                 helperText={
                   <span style={{ color: "red" }}>
-                    {objForm.formState.errors.ColorCode?.message}
+                    {objForm.formState.errors.colorCode?.message}
                   </span>
                 }
               />
