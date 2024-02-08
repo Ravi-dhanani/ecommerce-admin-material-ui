@@ -12,6 +12,7 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { Router, useRouter } from "next/router";
+import Swal from "sweetalert2";
 
 export default function Profile() {
   const router = useRouter();
@@ -100,8 +101,20 @@ export default function Profile() {
         <MenuItem
           onClick={() => {
             handleClose();
-            localStorage.clear();
-            router.push("/login");
+            Swal.fire({
+              title: "Are you sure Logout?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Logout",
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                sessionStorage.clear();
+                Swal.fire("Logout!", ` "you are logout"`, "success");
+                router.push("/login");
+              }
+            });
           }}
         >
           <ListItemIcon>

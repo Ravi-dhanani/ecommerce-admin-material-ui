@@ -11,7 +11,8 @@ class ApiServices {
   }
 
   static login(data: any) {
-    return HttpService.post(`${config.API_URL}/admin/login`, data);
+    let res = HttpService.post(`${config.API_URL}/admin/login`, data);
+    return res;
   }
 
   static async getLstAdmin() {
@@ -180,7 +181,7 @@ class ApiServices {
       data,
       localStorage.token
     );
-    return res.data;
+    return res;
   }
 
   static async updateProduct(data?: IProducts, _id?: string) {

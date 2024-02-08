@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import SaveIcon from "@mui/icons-material/Save";
+import { LoadingButton } from "@mui/lab";
 import {
   Avatar,
   Box,
-  Button,
   Container,
   CssBaseline,
   Grid,
@@ -11,13 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import * as yup from "yup";
-import ApiServices from "../services/Apiservices";
 import AuthServices from "../services/AuthServices";
 import { setUserData } from "../services/pulState/store";
-import { useEffect } from "react";
 
 const schema = yup
   .object({
@@ -30,7 +30,8 @@ type loginData = yup.InferType<typeof schema>;
 
 export default function Login() {
   const router = useRouter();
-
+  const [isLoading, setIsLoading] = useState(null);
+  console.log(isLoading, "isLoading");
   const {
     register,
     handleSubmit,
@@ -41,10 +42,19 @@ export default function Login() {
 
   const onSubmit = async (data: loginData) => {
     try {
-      const res = await ApiServices.login(data);
-      setUserData(res.data);
-      AuthServices.setToken(res.token);
-      AuthServices.setUser(res.data);
+      let res = await fetch("http://localhost:5000/admin/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await res.json();
+      setIsLoading(result.data);
+      setUserData(result.data);
+      AuthServices.setToken(result.token);
+      AuthServices.setUser(result.data);
       Swal.fire({
         position: "center",
         icon: "success",
@@ -119,14 +129,17 @@ export default function Login() {
               </Grid>
             </Grid>
 
-            <Button
+            <LoadingButton
               type="submit"
-              fullWidth
               variant="contained"
+              fullWidth
               sx={{ mt: 2, mb: 2 }}
+              loadingPosition="start"
+              startIcon={<SaveIcon />}
+              loading={isLoading ? true : false}
             >
               Sign In
-            </Button>
+            </LoadingButton>
           </Box>
         </Container>
       </form>

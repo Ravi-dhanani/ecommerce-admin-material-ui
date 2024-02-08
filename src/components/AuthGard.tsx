@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import AuthServices from "./services/AuthServices";
-import Login from "./login/Login";
-import { Router, useRouter } from "next/router";
 
 export default function AuthGard(props: { children?: any }) {
   const [userInfo, setUserInfo] = useState();

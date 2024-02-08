@@ -17,7 +17,7 @@ export function useSizeList() {
 }
 
 export function useCategoryList() {
-  return useQuery("list", () => {
+  return useQuery("categorylist", () => {
     return ApiServices.getLstCategory();
   });
 }
