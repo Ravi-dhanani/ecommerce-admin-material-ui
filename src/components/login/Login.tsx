@@ -42,14 +42,17 @@ export default function Login() {
 
   const onSubmit = async (data: loginData) => {
     try {
-      let res = await fetch("http://localhost:5000/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      let res = await fetch(
+        "https://ecommerce-rest-api-y2lw.onrender.com/admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const result = await res.json();
       setIsLoading(result.data);
       setUserData(result.data);
