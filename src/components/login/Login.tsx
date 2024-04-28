@@ -43,7 +43,7 @@ export default function Login() {
   const onSubmit = async (data: loginData) => {
     try {
       let res = await fetch(
-        "https://ecommerce-rest-api-y2lw.onrender.com/admin/login",
+        "https://lucky-ray-nightshirt.cyclic.app/admin/login",
         {
           method: "POST",
           headers: {

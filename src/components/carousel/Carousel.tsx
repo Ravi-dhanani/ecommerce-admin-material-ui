@@ -61,7 +61,7 @@ export default function Carousel() {
             columns={[
               {
                 title: "Image",
-                field: "imageUrl",
+                field: "img",
                 render: (item: any) => (
                   <img
                     src={item.imageUrl}

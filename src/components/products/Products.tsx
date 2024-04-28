@@ -13,10 +13,9 @@ export default function Products() {
   const [isEdit, setIsEdit] = React.useState<any>(false);
 
   const list = useProductList();
-
   const showSuccessMessage = store.useState((s) => s.successMessage);
   const isSuccess = store.useState((s) => s.isSuccess);
-
+  console.log(ObjProduct);
   async function deleteProductsData(_id: string) {
     try {
       Swal.fire({
@@ -29,7 +28,6 @@ export default function Products() {
       }).then(async (result) => {
         if (result.isConfirmed) {
           const res = await ApiServices.deleteCategory(_id);
-          console.log(res);
           Swal.fire(
             "Deleted!",
             `${res.message ? res.message : "Category Deleted"}`,
@@ -61,12 +59,14 @@ export default function Products() {
             columns={[
               {
                 title: "Image",
-                field: "MainImage",
-                render: (item: any) => (
-                  <img src={item.MainImage} height={60} width={100} />
-                ),
+                field: "images",
+                render: (image: any) => {
+                  return (
+                    <img src={image.images[0].url} height={60} width={100} />
+                  );
+                },
               },
-              { title: "Title", field: "CategoryTitle" },
+              { title: "Title", field: "title" },
               { title: "Date", field: "Date" },
             ]}
             data={list.data}
