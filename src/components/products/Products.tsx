@@ -15,7 +15,6 @@ export default function Products() {
   const list = useProductList();
   const showSuccessMessage = store.useState((s) => s.successMessage);
   const isSuccess = store.useState((s) => s.isSuccess);
-  console.log(ObjProduct);
   async function deleteProductsData(_id: string) {
     try {
       Swal.fire({
@@ -62,7 +61,7 @@ export default function Products() {
                 field: "images",
                 render: (image: any) => {
                   return (
-                    <img src={image.images[0].url} height={60} width={100} />
+                    <img src={image?.images[0]?.url} height={60} width={100} />
                   );
                 },
               },
