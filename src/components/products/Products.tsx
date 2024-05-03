@@ -61,7 +61,11 @@ export default function Products() {
                 field: "images",
                 render: (image: any) => {
                   return (
-                    <img src={image?.images[0]?.url} height={150} width={150} />
+                    <img
+                      src={image?.images?.[0]?.url}
+                      height={150}
+                      width={150}
+                    />
                   );
                 },
               },
